@@ -1,5 +1,8 @@
 package com.pedro.backendencurtadordeurl;
 
+import java.util.Date;
+
+import com.pedro.backendencurtadordeurl.domain.Url;
 import com.pedro.backendencurtadordeurl.domain.Usuario;
 
 import org.springframework.boot.CommandLineRunner;
@@ -18,7 +21,9 @@ public class BackendEncurtadorDeUrlApplication implements CommandLineRunner{
 		
 		Usuario usuario = new Usuario(null, "matheus", "100568");
 		System.out.println(usuario);
-		
+
+		Url url = new Url(null, "https:www.matheus.pedro.dev", "https:www.encu/jrjdj", new Date());
+		System.out.println(url);
 	}
 
 }
