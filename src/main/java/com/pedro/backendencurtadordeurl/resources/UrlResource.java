@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
@@ -24,15 +25,16 @@ public class UrlResource {
 
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody Url obj) {
-        Url url = service.insert(obj);
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentRequest().path("/").toUriString();
+        Url url = service.insert(obj, baseUrl);
         URI  uri = ServletUriComponentsBuilder.fromCurrentRequest()
-            .path("/{id}").buildAndExpand(url.getId()).toUri();
+            .path("/{hashUrl}").buildAndExpand(url.getHashUrl()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Url> find(@PathVariable Integer id) {
-        Url url = service.find(id);
-        return ResponseEntity.ok().body(url);
+    @GetMapping(value = "/{hashUrl}")
+    public ModelAndView find(@PathVariable String hashUrl) {
+        Url url = service.findByUrlEncurtada(hashUrl);
+        return new ModelAndView("redirect:" + url.getUrlOriginal());
     }
 }
