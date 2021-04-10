@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -29,7 +30,8 @@ public class Url implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String urlOriginal;
-    private String urlEncurtada;
+    private @Setter String hashUrl;
+    private @Setter String urlEncurtada;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dataCriacao;
 }
