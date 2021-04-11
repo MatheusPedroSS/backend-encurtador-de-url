@@ -1,6 +1,7 @@
 package com.pedro.backendencurtadordeurl.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import com.pedro.backendencurtadordeurl.domain.Url;
 import com.pedro.backendencurtadordeurl.services.UrlService;
@@ -36,5 +37,10 @@ public class UrlResource {
     public ModelAndView find(@PathVariable String hashUrl) {
         Url url = service.findByUrlEncurtada(hashUrl);
         return new ModelAndView("redirect:" + url.getUrlOriginal());
+    }
+
+    @GetMapping
+    public List<Url> findAllUrl() {
+        return service.findAllUrl();
     }
 }
