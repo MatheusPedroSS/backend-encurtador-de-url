@@ -7,11 +7,15 @@ import com.pedro.backendencurtadordeurl.repositories.UsuarioRepository;
 import com.pedro.backendencurtadordeurl.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioService {
     
+    @Autowired
+    private BCryptPasswordEncoder passwordEnconder;
+
     @Autowired
     private UsuarioRepository repository;
 
@@ -21,6 +25,7 @@ public class UsuarioService {
     }
 
     public Usuario insert(Usuario obj) {
+        obj.setSenha(passwordEnconder.encode(obj.getSenha()));
         return repository.save(obj);
     }
 
