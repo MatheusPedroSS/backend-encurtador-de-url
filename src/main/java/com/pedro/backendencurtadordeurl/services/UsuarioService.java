@@ -2,7 +2,7 @@ package com.pedro.backendencurtadordeurl.services;
 
 import java.util.Optional;
 
-import com.pedro.backendencurtadordeurl.domain.Usuario;
+import com.pedro.backendencurtadordeurl.model.Usuario;
 import com.pedro.backendencurtadordeurl.repositories.UsuarioRepository;
 import com.pedro.backendencurtadordeurl.services.exceptions.ObjectNotFoundException;
 
@@ -25,7 +25,7 @@ public class UsuarioService {
     }
 
     public Usuario insert(Usuario obj) {
-        obj.setSenha(passwordEnconder.encode(obj.getSenha()));
+        obj.setPassword(passwordEnconder.encode(obj.getPassword()));
         return repository.save(obj);
     }
 

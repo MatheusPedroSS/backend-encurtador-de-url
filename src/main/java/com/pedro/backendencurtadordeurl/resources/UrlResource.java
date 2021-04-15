@@ -3,7 +3,7 @@ package com.pedro.backendencurtadordeurl.resources;
 import java.net.URI;
 import java.util.List;
 
-import com.pedro.backendencurtadordeurl.domain.Url;
+import com.pedro.backendencurtadordeurl.model.Url;
 import com.pedro.backendencurtadordeurl.services.UrlService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +35,11 @@ public class UrlResource {
 
     @GetMapping(value = "/{hashUrl}")
     public ModelAndView find(@PathVariable String hashUrl) {
-        Url url = service.findByUrlEncurtada(hashUrl);
-        return new ModelAndView("redirect:" + url.getUrlOriginal());
+        return new ModelAndView("redirect:" + service.findByUrlEncurtada(hashUrl));
     }
 
-    @GetMapping
-    public List<Url> findAllUrl() {
-        return service.findAllUrl();
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<Url>> findAllUrl() {
+        return ResponseEntity.ok().body(service.findAllUrl());
     }
 }
