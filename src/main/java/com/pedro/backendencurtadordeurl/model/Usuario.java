@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +30,7 @@ public class Usuario implements Serializable {
     @Getter private String username;
     @Getter @Setter private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     @Getter @Setter private List<Url> urls;
 

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pedro.backendencurtadordeurl.model.dto.UsuarioDTO;
+import com.pedro.backendencurtadordeurl.model.Usuario;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,8 +29,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException, ServletException {
         
-        UsuarioDTO credentials = new ObjectMapper()
-            .readValue(request.getInputStream(), UsuarioDTO.class);
+        Usuario credentials = new ObjectMapper()
+            .readValue(request.getInputStream(), Usuario.class);
 
         return getAuthenticationManager().authenticate(
             new UsernamePasswordAuthenticationToken(

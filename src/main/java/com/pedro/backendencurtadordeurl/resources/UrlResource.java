@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
@@ -34,12 +33,12 @@ public class UrlResource {
     }
 
     @GetMapping(value = "/{hashUrl}")
-    public ModelAndView find(@PathVariable String hashUrl) {
-        return new ModelAndView("redirect:" + service.findByUrlEncurtada(hashUrl));
+    public Url find(@PathVariable String hashUrl) {
+        return service.findByUrlEncurtada(hashUrl);
     }
 
-    @GetMapping(value = "/all")
-    public ResponseEntity<List<Url>> findAllUrl() {
-        return ResponseEntity.ok().body(service.findAllUrl());
+    @GetMapping(value = "{usuarioId}/all")
+    public ResponseEntity<List<Url>> findAllUrl(@PathVariable Integer usuarioId) {
+        return ResponseEntity.ok().body(service.findAllUsuarioId(usuarioId));
     }
 }

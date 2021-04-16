@@ -3,7 +3,6 @@ package com.pedro.backendencurtadordeurl.resources;
 import java.net.URI;
 
 import com.pedro.backendencurtadordeurl.model.Usuario;
-import com.pedro.backendencurtadordeurl.model.dto.UsuarioDTO;
 import com.pedro.backendencurtadordeurl.services.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +23,16 @@ public class UsuarioResource {
     private UsuarioService service;
 
     @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody UsuarioDTO obj) {
-        Usuario usuario = service.insert(obj.dtoFromObject());
+    public ResponseEntity<Void> insert(@RequestBody Usuario obj) {
+        Usuario usuario = service.insert(obj);
         URI  uri = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}").buildAndExpand(usuario.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UsuarioDTO> find(@PathVariable Integer id) {
+    public ResponseEntity<Usuario> find(@PathVariable Integer id) {
         Usuario usuario = service.find(id);
-        return ResponseEntity.ok().body(
-            new UsuarioDTO(usuario.getUsername(), usuario.getPassword())
-            );
+        return ResponseEntity.ok().body(usuario);
     }
 }

@@ -37,12 +37,12 @@ public class Url implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    @JsonIgnore
-    @Getter @Setter private Usuario usuario;
+    @Getter private Usuario usuario;
 
-    public Url(String urlOriginal, String urlEncurtada, Date dataCriacao) {
+    public Url(String urlOriginal, String urlEncurtada, Date dataCriacao, Usuario usuario) {
         this.urlOriginal = urlOriginal;
         this.urlEncurtada = urlEncurtada;
         this.dataCriacao = dataCriacao;
+        this.usuario = usuario;
     }
 }
