@@ -31,7 +31,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         
         Usuario credentials = new ObjectMapper()
             .readValue(request.getInputStream(), Usuario.class);
-
+            
         return getAuthenticationManager().authenticate(
             new UsernamePasswordAuthenticationToken(
                 credentials.getUsername(),
@@ -47,7 +47,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             HttpServletResponse response, 
             FilterChain chain,
             Authentication auth) throws IOException, ServletException {
-        
         TokenAuthenticationService.addAuthentication(response, auth.getName());
     }
 
